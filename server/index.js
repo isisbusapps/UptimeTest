@@ -11,4 +11,4 @@ app.get('/endpoint', function(req, res){
     res.send(req.query.callback + '('+ JSON.stringify(true) + ');');
 });
 
-app.listen(process.env.Port || 3000);
+app.listen(process.env.PORT || 3000);
