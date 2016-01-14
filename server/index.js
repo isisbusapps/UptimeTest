@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
 app.get('/endpoint', function(req, res){
     res.header('Content-type','application/json');
     res.header('Charset','utf8');
-    res.send(req.query.callback + '('+ JSON.stringify(true) + ');');
+    res.send(req.query.callback + '({"success":'+ JSON.stringify(true) + '});');
 });
 
 app.listen(process.env.PORT || 3000);
