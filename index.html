@@ -1,0 +1,59 @@
+<html>
+<head>
+  <title>Is the network up?</title>
+  <style>body{font-size:3vw;font-family:Helvetica;}</style>
+</head>
+<body>
+  <div style="text-align:center;">
+    <h1>Is the network up?</h1>
+    <h2 id="status"></h2>
+    <h4 id="downFor" style="color:#ccc;font-style:italic;height:100px"></h4>
+    <p id="history"></p>
+  </div>  
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $.ajaxSetup({timeout:3000});
+    var testUrl = '/endpoint?callback=?';
+    var wasNetworkUp = true;
+    var wentDown;
+
+    function checkNetwork(){
+      document.getElementById('status').innerText = "I'm checking..."; 
+      document.title= "Is the network up? Checking...";
+      $.getJSON(testUrl).done(function(){
+        if(!wasNetworkUp){
+          var duration = moment(new Date()).diff(moment(wentDown), 'minutes');
+          if(duration){
+            document.getElementById('history').innerText += moment().format("DD/MM/YY hh:mm") + ': Was down for '+duration+' minutes (' + url.Name +')<br/>';
+          }
+        }
+        
+        document.title= "Is the network up? Yes!";
+        document.getElementById('status').style.color = "Green";
+        document.getElementById('status').innerText = "YES!";
+        document.getElementById('downFor').innerText = "";
+        
+        wentDown = undefined;
+        wasNetworkUp = true;
+
+      }).fail(function(){
+        console.log(arguments)
+        wasNetworkUp = false;
+        if(!wentDown){
+            wentDown = new Date();
+        }
+        document.title = "Is the network up? No!";
+        document.getElementById('status').style.color = "Red";
+        document.getElementById('status').innerText = "NO!";
+        document.getElementById('downFor').innerText = "Down for " + moment(new Date()).diff(moment(wentDown), 'minutes') + " minutes";
+
+      });
+
+      setTimeout(checkNetwork, 10000);
+    }
+    checkNetwork();
+    
+  </script>
+</body></html>
