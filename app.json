@@ -1,0 +1,6 @@
+{
+  "name": "UptimeTest",
+  "description": "A simple network connectivity monitor",
+  "repository": "https://github.com/isisbusapps/UptimeTest",
+  "keywords": ["uptime"]
+}
