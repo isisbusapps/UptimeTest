@@ -26,7 +26,7 @@
         if(!wasNetworkUp){
           var duration = moment(new Date()).diff(moment(wentDown), 'minutes');
           if(duration){
-            document.getElementById('history').innerText += moment().format("DD/MM/YY hh:mm") + ': Was down for '+duration+' minutes (' + url.Name +')<br/>';
+            document.getElementById('history').innerText += moment().format("DD/MM/YY hh:mm") + ': Was down for '+duration+' minutes<br/>';
           }
         }
         
